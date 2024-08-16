@@ -4,17 +4,17 @@ let ledCharacteristic;
 document.querySelector('#connect').addEventListener('click', function () {
   navigator.bluetooth
     .requestDevice({
-      filters: [{ services: ['00001801-0000-1000-8000-00805f9b34fb'] }],
+      filters: [{ services: ['180A'] }],
     })
     .then((device) => device.gatt.connect())
     .then((server) => {
-      return server.getPrimaryService('00001801-0000-1000-8000-00805f9b34fb');
+      return server.getPrimaryService('180A');
     })
     
     // Fetch the LED control characteristic
     .then((service) => {
       return Promise.all([
-        service.getCharacteristic('00002a05-0000-1000-8000-00805f9b34fb'), // LED characteristic
+        service.getCharacteristic('2A57'), // LED characteristic
         service.getCharacteristic('19b10002-e8f2-537e-4f6c-d104768a1214'), // Motor speed characteristic (assuming this is correct)
       ]);
     })
